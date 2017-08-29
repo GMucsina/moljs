@@ -9,32 +9,32 @@ var cars = [
     {
         type: "A4",
         man: "Audi",
-        year: 2010
+        year: 11
     },
     {
         type: "Yaris",
         man: "Toyota",
-        year: 2010
+        year: 2
     },
     {
         type: "6",
         man: "Mazda",
-        year: 2010
+        year: 22
     },
     {
         type: "525d",
         man: "BMW",
-        year: 2010
+        year: 3
     },
     {
         type: "Insignia",
         man: "Opel",
-        year: 2010
+        year: 10000
     },
     {
         type: "Passat",
         man: "VolksWagen",
-        year: 2010
+        year: 20
     }
 ];
 
@@ -76,11 +76,27 @@ var table = document.querySelector("#cars-table");
 // Kattintás figyelése
 document.querySelector(".load-cars-btn").addEventListener("click", function() {
     fillTable(table, cars);
-})
+});
 
 document.querySelector(".load-people-btn").addEventListener("click", function() {
     fillTable(table, people);
-})
+});
+
+document.querySelector(".sort-type-btn").addEventListener("click", function() {
+    sortList(cars, "year")
+    fillTable(table, cars);
+});
+
+
+// Szűrés típus alapján
+document.querySelector(".type-search").addEventListener("keyup", function() {
+    var text = this.value.toLowerCase();
+    var filteredCars = cars.filter(function(item) {
+        return item.type.toLowerCase().indexOf(text) > -1;
+    });
+    fillTable(table, filteredCars);
+});
+
 
 /* kísérletezés volt; 5 másodperccel a töltés után csinálta meg a táblát
 setTimeout(function () {
@@ -113,4 +129,10 @@ function fillTable(element, data) {
         content += "</tr> \n";
     }
     tBody.innerHTML = content;
+}
+
+function sortList(listToSort, sortAttr) {
+    listToSort.sort(function (a, b) {
+        return a[sortAttr].toString().localeCompare(b[sortAttr].toString(), undefined, {numeric: true});
+    });
 }
