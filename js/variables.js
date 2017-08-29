@@ -72,9 +72,21 @@ var people = [
 ];
 
 var table = document.querySelector("#cars-table");
+
+// Kattintás figyelése
+document.querySelector(".load-cars-btn").addEventListener("click", function() {
+    fillTable(table, cars);
+})
+
+document.querySelector(".load-people-btn").addEventListener("click", function() {
+    fillTable(table, people);
+})
+
+/* kísérletezés volt; 5 másodperccel a töltés után csinálta meg a táblát
 setTimeout(function () {
     fillTable(table, people);
 }, 5000);
+*/
 
 // Táblázat kitöltő függény
 function fillTable(element, data) {
