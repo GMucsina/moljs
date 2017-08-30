@@ -88,14 +88,14 @@ document.querySelector(".sort-type-btn").addEventListener("click", function() {
 });
 
 
-// Szűrés típus alapján
+// Szűrés típus alapjánn
 document.querySelector(".type-search").addEventListener("keyup", function() {
     var text = this.value.toLowerCase();
     var filteredCars = cars.filter(function(item) {
         return item.type.toLowerCase().indexOf(text) > -1;
     });
     fillTable(table, filteredCars);
-});
+}); 
 
 
 /* kísérletezés volt; 5 másodperccel a töltés után csinálta meg a táblát
