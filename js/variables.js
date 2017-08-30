@@ -38,6 +38,8 @@ var cars = [
     }
 ];
 
+
+
 var people = [
     {
         Name: "Jon",
@@ -87,6 +89,17 @@ document.querySelector(".sort-type-btn").addEventListener("click", function() {
     fillTable(table, cars);
 });
 
+document.querySelector(".map-btn").addEventListener("click", function() {
+    var mappedCars = cars.map(function(item) {
+        var newItem = {};
+        for (var k in item) {
+            newItem[k] = item[k];
+        };
+        newItem.isNew = item.year > 2009 ? "Igen" : "Nem"
+        return newItem;
+    });
+    fillTable(table, mappedCars);
+});
 
 // Szűrés típus alapjánn
 document.querySelector(".type-search").addEventListener("keyup", function() {
