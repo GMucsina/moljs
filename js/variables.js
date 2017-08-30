@@ -9,36 +9,52 @@ var cars = [
     {
         type: "A4",
         man: "Audi",
-        year: 11
+        year: 1980
     },
     {
         type: "Yaris",
         man: "Toyota",
-        year: 2
+        year: 1998
     },
     {
         type: "6",
         man: "Mazda",
-        year: 22
+        year: 2001
     },
     {
         type: "525d",
         man: "BMW",
-        year: 3
+        year: 2000
     },
     {
         type: "Insignia",
         man: "Opel",
-        year: 10000
+        year: 2010
     },
     {
         type: "Passat",
         man: "VolksWagen",
-        year: 20
+        year: 1997
     }
 ];
 
+// Random elem kiválasztása
+function getRandomItem(arr) {
+    var l = arr.length;
+    var index = Math.floor(Math.random() * l);
+    return arr[index];
+}
 
+// Nagy tömb gyártása
+function getCars() {
+    var arr = [];
+    for (var i = 0; i < 20000; i++) {
+        var randomItem = getRandomItem(cars);
+        randomItem.year = Math.round(Math.random() * 20 + 1995)
+        arr.push(randomItem);
+    }
+    return arr;
+}
 
 var people = [
     {
@@ -77,7 +93,7 @@ var table = document.querySelector("#cars-table");
 
 // Kattintás figyelése
 document.querySelector(".load-cars-btn").addEventListener("click", function() {
-    fillTable(table, cars);
+    fillTable(table, getCars());
 });
 
 document.querySelector(".load-people-btn").addEventListener("click", function() {
@@ -85,9 +101,18 @@ document.querySelector(".load-people-btn").addEventListener("click", function() 
 });
 
 document.querySelector(".sort-type-btn").addEventListener("click", function() {
+    console.time("sort");
+    var cars = getCars();
     sortList(cars, "year")
     fillTable(table, cars);
+    console.timeEnd("sort");
 });
+
+function sortList(listToSort, sortAttr) {
+    listToSort.sort(function (a, b) {
+        return a[sortAttr].toString().localeCompare(b[sortAttr].toString(), undefined, {numeric: true});
+    });
+}
 
 document.querySelector(".map-btn").addEventListener("click", function() {
     var mappedCars = cars.map(function(item) {
@@ -144,8 +169,3 @@ function fillTable(element, data) {
     tBody.innerHTML = content;
 }
 
-function sortList(listToSort, sortAttr) {
-    listToSort.sort(function (a, b) {
-        return a[sortAttr].toString().localeCompare(b[sortAttr].toString(), undefined, {numeric: true});
-    });
-}
